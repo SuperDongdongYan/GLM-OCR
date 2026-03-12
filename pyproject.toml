@@ -7,7 +7,7 @@ name = "glmocr"
 version = "0.1.1"
 description = "GLM OCR - Optical Character Recognition powered by GLM"
 authors = [
-  {name = "ZHIPUAI", email = "info@zhipuai.cn"}
+  {name = "zai-org", email = "wenmeng.yu@aminer.cn"}
 ]
 readme = "README.md"
 requires-python = ">=3.10"
@@ -67,9 +67,9 @@ server = [
 ]
 
 all = [
-  "torch>=2.0.0",
-  "torchvision>=0.15.0",
-  "transformers>=4.30.0",
+  "torch>=2.10.0",
+  "torchvision>=0.25.0",
+  "transformers>=5.3.0",
   "sentencepiece>=0.2.0",
   "accelerate>=1.13.0",
   "opencv-python>=4.13.0",
@@ -77,20 +77,20 @@ all = [
   "flask>=3.1.0",
 ]
 dev = [
-  "pytest>=7.0.0",
-  "black>=23.0.0",
-  "flake8>=6.0.0",
-  "mypy>=1.0.0",
+  "pytest>=9.0.0",
+  "black>=26.3.0",
+  "flake8>=7.3.0",
+  "mypy>=1.19.0",
 ]
 
 [project.scripts]
 glmocr = "glmocr.cli:main"
 
 [project.urls]
-Homepage = "https://github.com/ZHIPUAI/glm-ocr"
-Repository = "https://github.com/ZHIPUAI/glm-ocr"
-Documentation = "https://github.com/ZHIPUAI/glm-ocr#readme"
-Issues = "https://github.com/ZHIPUAI/glm-ocr/issues"
+Homepage = "https://github.com/zai-org/glm-ocr"
+Repository = "https://github.com/zai-org/glm-ocr"
+Documentation = "https://github.com/zai-org/glm-ocr#readme"
+Issues = "https://github.com/zai-org/glm-ocr/issues"
 
 [tool.setuptools]
 
