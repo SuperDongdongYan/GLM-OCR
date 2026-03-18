@@ -5,6 +5,17 @@ description:
   using ZhiPu GLM-OCR API. Supports complex equations, inline formulas, and formula blocks.
   Use this skill when the user wants to extract formulas, convert formula images to LaTeX,
   or OCR mathematical expressions.
+metadata:
+  openclaw:
+    requires:
+      env:
+        - ZHIPU_API_KEY
+        - GLM_OCR_TIMEOUT
+      bins:
+        - python
+    primaryEnv: ZHIPU_API_KEY
+    emoji: "📄"
+    homepage: https://github.com/zai-org/GLM-OCR/tree/main/skills/glmocr-formula
 ---
 
 # GLM-V Formula Recognition Skill / GLM-V 公式识别技能

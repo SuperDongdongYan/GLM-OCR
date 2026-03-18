@@ -5,6 +5,17 @@ description:
   handwriting styles, languages, and mixed handwritten/printed content. Use this skill
   when the user wants to read handwritten notes, convert handwriting to text, or OCR
   handwritten documents.
+metadata:
+  openclaw:
+    requires:
+      env:
+        - ZHIPU_API_KEY
+        - GLM_OCR_TIMEOUT
+      bins:
+        - python
+    primaryEnv: ZHIPU_API_KEY
+    emoji: "📄"
+    homepage: https://github.com/zai-org/GLM-OCR/tree/main/skills/glmocr-handwriting
 ---
 
 # GLM-V Handwriting Recognition Skill / GLM-V 手写体识别技能

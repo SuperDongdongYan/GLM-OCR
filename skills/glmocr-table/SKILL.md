@@ -5,6 +5,17 @@ description:
   ZhiPu GLM-OCR API. Supports complex tables, merged cells, and multi-page documents.
   Use this skill when the user wants to extract tables, recognize spreadsheets,
   or convert table images to editable format.
+metadata:
+  openclaw:
+    requires:
+      env:
+        - ZHIPU_API_KEY
+        - GLM_OCR_TIMEOUT
+      bins:
+        - python
+    primaryEnv: ZHIPU_API_KEY
+    emoji: "📄"
+    homepage: https://github.com/zai-org/GLM-OCR/tree/main/skills/glmocr-table
 ---
 
 # GLM-V Table Recognition Skill / GLM-V 表格识别技能
