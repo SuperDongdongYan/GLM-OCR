@@ -16,28 +16,21 @@ import json
 import logging
 import mimetypes
 import os
-import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-
-def _ensure_deps():
-    """Auto-install missing dependencies."""
-    try:
-        import requests
-    except ImportError:
-        print("Installing missing dependency: requests", file=sys.stderr)
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--quiet", "--break-system-packages", "requests"],
-            stdout=subprocess.DEVNULL,
-        )
-
-
-_ensure_deps()
-
-import requests  # noqa: E402
+try:
+    import requests  # noqa: E402
+except ImportError:
+    print(
+        "Error: 'requests' is required. Please install it:\n"
+        "  pip install requests\n"
+        "Or install all dependencies: pip install -r requirements.txt",
+        file=sys.stderr,
+    )
+    sys.exit(1)
 
 # Fix Windows console encoding
 if sys.platform == "win32":
@@ -108,7 +101,10 @@ def _is_url(path: str) -> bool:
     """Check if the given path is a URL."""
     try:
         result = urlparse(path)
-        return all([result.scheme, result.netloc]) and result.scheme in ('http', 'https')
+        return all([result.scheme, result.netloc]) and result.scheme in (
+            "http",
+            "https",
+        )
     except Exception:
         return False
 
@@ -160,10 +156,7 @@ def _make_api_request(api_url: str, api_key: str, payload: dict) -> dict:
     Raises:
         RuntimeError: On API errors
     """
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
 
     timeout = float(os.getenv("GLM_OCR_TIMEOUT", str(DEFAULT_TIMEOUT)))
 
@@ -180,7 +173,9 @@ def _make_api_request(api_url: str, api_key: str, payload: dict) -> dict:
         try:
             error_body = resp.json()
             if isinstance(error_body, dict):
-                error_detail = str(error_body.get("error", {}).get("message", "")).strip()
+                error_detail = str(
+                    error_body.get("error", {}).get("message", "")
+                ).strip()
         except Exception:
             pass
 
@@ -188,11 +183,15 @@ def _make_api_request(api_url: str, api_key: str, payload: dict) -> dict:
             error_detail = (resp.text[:200] or "No response body").strip()
 
         if resp.status_code == 401 or resp.status_code == 403:
-            raise RuntimeError(f"Authentication failed ({resp.status_code}): {error_detail}")
+            raise RuntimeError(
+                f"Authentication failed ({resp.status_code}): {error_detail}"
+            )
         elif resp.status_code == 429:
             raise RuntimeError(f"API rate limit exceeded (429): {error_detail}")
         elif resp.status_code >= 500:
-            raise RuntimeError(f"API service error ({resp.status_code}): {error_detail}")
+            raise RuntimeError(
+                f"API service error ({resp.status_code}): {error_detail}"
+            )
         else:
             raise RuntimeError(f"API error ({resp.status_code}): {error_detail}")
 
@@ -215,9 +214,7 @@ def _make_api_request(api_url: str, api_key: str, payload: dict) -> dict:
 
 
 def extract_text(
-    image_source: str,
-    model: str = "glm-ocr",
-    **options
+    image_source: str, model: str = "glm-ocr", **options
 ) -> dict[str, Any]:
     """
     Extract text from image or PDF using GLM-OCR layout parsing API.
@@ -299,7 +296,7 @@ def extract_text(
         "result": result,
         "error": None,
         "source": image_source,
-        "source_type": "url" if is_url else "file"
+        "source_type": "url" if is_url else "file",
     }
 
 
@@ -320,7 +317,9 @@ def _extract_text(result) -> str:
         if "md_results" in data and isinstance(data["md_results"], str):
             return data["md_results"]
 
-    raise ValueError(f"Invalid response schema: unable to extract text from {list(result.keys())}")
+    raise ValueError(
+        f"Invalid response schema: unable to extract text from {list(result.keys())}"
+    )
 
 
 def _error(code: str, message: str, source: str) -> dict:
@@ -332,7 +331,7 @@ def _error(code: str, message: str, source: str) -> dict:
         "result": None,
         "error": {"code": code, "message": message},
         "source": source,
-        "source_type": "url" if _is_url(source) else "file"
+        "source_type": "url" if _is_url(source) else "file",
     }
 
 
