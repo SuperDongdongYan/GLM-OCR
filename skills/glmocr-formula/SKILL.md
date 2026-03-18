@@ -75,7 +75,13 @@ After running the script, **you must show the full extracted content to the user
 
 **⚠️ LaTeX Rendering / LaTeX 渲染注意：**
 
-OCR API returns formulas in LaTeX format (e.g., `$\frac{1}{2}$`, `$\theta^{x+1}$`). Since most chat platforms do not render LaTeX, you **MUST convert LaTeX to readable Unicode/plain-text format** before displaying to the user:
+OCR API returns formulas in LaTeX format (e.g., `$\frac{1}{2}$`, `$\theta^{x+1}$`). Since most chat platforms do not render LaTeX, you should ask the user **once** (on first use):
+
+> "OCR 结果包含 LaTeX 公式，需要我将公式转为 Unicode 可读格式展示，还是保留原始 LaTeX？"
+
+**Remember the user's choice** for the rest of the session. Do NOT ask again on subsequent calls unless the user explicitly changes their preference.
+
+- **User chooses readable format** → convert LaTeX to Unicode/plain-text:
 
 | LaTeX | Unicode / 纯文本 |
 |-------|-----------------|
@@ -87,14 +93,14 @@ OCR API returns formulas in LaTeX format (e.g., `$\frac{1}{2}$`, `$\theta^{x+1}$
 | `$\phi$` | φ |
 | `$\therefore$` | ∴ |
 | `$\Rightarrow$` | ⇒ |
-| `$\left\{ \begin{array}{l} ... \end{array} \right.$` | Use multiline brace format: ⎧ line1 ⎨ line2 ⎩ |
+| `$\left\{ \begin{array}{l} ... \end{array} \right.$` | ⎧ line1 ⎨ line2 ⎩ |
 | `$\textcircled{1}$` | ① |
 | `$\in$` | ∈ |
 | `$\infty$` | ∞ |
 | `$\ln$` | ln |
 | `$\leq$` / `$\geq$` | ≤ / ≥ |
 
-Always present the **converted readable version** to the user. Optionally mention that the raw LaTeX is available in the saved output file.
+- **User chooses raw LaTeX** → display the original LaTeX output directly, and remind them the raw data is also saved in the output file if `--output` was used.
 
 ## How to Use / 使用方法
 

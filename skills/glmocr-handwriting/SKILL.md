@@ -71,27 +71,6 @@ After running the script, **you must show the full extracted content to the user
 - Show the full extracted handwritten text
 - If the result file is saved, tell the user the file path
 
-**⚠️ LaTeX Rendering / LaTeX 渲染注意：**
-
-OCR API returns formulas in LaTeX format (e.g., `$\frac{1}{2}$`, `$x^{2}$`). Since most chat platforms do not render LaTeX, you **MUST convert LaTeX to readable Unicode/plain-text format** before displaying to the user:
-
-| LaTeX | Unicode / 纯文本 |
-|-------|-----------------|
-| `$\frac{a}{b}$` | a/b |
-| `$x^{n}$` | x^n |
-| `$x_{i}$` | xᵢ |
-| `$\sqrt{x}$` | √x |
-| `$\theta$` | θ |
-| `$\therefore$` | ∴ |
-| `$\Rightarrow$` | ⇒ |
-| `$\textcircled{1}$` | ① |
-| `$\in$` | ∈ |
-| `$\infty$` | ∞ |
-| `$\leq$` / `$\geq$` | ≤ / ≥ |
-| `$\left\{ \begin{array}{l} ... \end{array} \right.$` | Use multiline brace format: ⎧ line1 ⎨ line2 ⎩ |
-
-Always present the **converted readable version** to the user. Optionally mention that the raw LaTeX is available in the saved output file.
-
 ## How to Use / 使用方法
 
 ### Recognize from URL / 从 URL 识别
