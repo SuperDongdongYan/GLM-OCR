@@ -1,7 +1,7 @@
 ---
 name: glmocr-formula
 description:
-  Recognize and extract mathematical formulas from images and PDFs into LaTeX format
+  Official skill for recognizing and extracting mathematical formulas from images and PDFs into LaTeX format
   using ZhiPu GLM-OCR API. Supports complex equations, inline formulas, and formula blocks.
   Use this skill when the user wants to extract formulas, convert formula images to LaTeX,
   or OCR mathematical expressions.
@@ -14,7 +14,7 @@ metadata:
       bins:
         - python
     primaryEnv: ZHIPU_API_KEY
-    emoji: "📄"
+    emoji: "📐"
     homepage: https://github.com/zai-org/GLM-OCR/tree/main/skills/glmocr-formula
 ---
 
@@ -43,7 +43,7 @@ Recognize mathematical formulas from images and PDFs and convert them to LaTeX f
 | Resource        | Link                                                                           |
 | --------------- | ------------------------------------------------------------------------------ |
 | **Get API Key** | [智谱开放平台 API Keys](https://bigmodel.cn/usercenter/proj-mgmt/apikeys)      |
-| **API Docs**    | [Layout Parsing / 版面解析](https://open.bigmodel.cn/dev/api/ocr/layout-parse) |
+| **API Docs**    | [Layout Parsing / 版面解析](https://docs.bigmodel.cn/api-reference/%E6%A8%A1%E5%9E%8B-api/%E6%96%87%E6%A1%A3%E8%A7%A3%E6%9E%90) |
 
 ## Prerequisites / 前置条件
 
@@ -56,18 +56,40 @@ This script reads the key from the `ZHIPU_API_KEY` environment variable. Reusing
 
 **Setup options / 配置方式（任选一种）：**
 
-1. **OpenClaw config (recommended) / OpenClaw 配置（推荐）：** Set in `openclaw.json` under `skills.entries.glmocr-formula.env`:
+1. **Global config (recommended) / 全局配置（推荐）：** Set once in `openclaw.json` under `env.vars`, all Zhipu skills will share it:
 
    ```json
-   "glmocr-formula": { "enabled": true, "env": { "ZHIPU_API_KEY": "你的密钥" } }
+   {
+     "env": {
+       "vars": {
+         "ZHIPU_API_KEY": "你的密钥"
+       }
+     }
+   }
    ```
 
-2. **Shell environment variable / Shell 环境变量：** Add to `~/.zshrc`:
+2. **Skill-level config / Skill 级别配置：** Set for this skill only in `openclaw.json`:
+
+   ```json
+   {
+     "skills": {
+       "entries": {
+         "glmocr-formula": {
+           "env": {
+             "ZHIPU_API_KEY": "你的密钥"
+           }
+         }
+       }
+     }
+   }
+   ```
+
+3. **Shell environment variable / Shell 环境变量：** Add to `~/.zshrc`:
    ```bash
    export ZHIPU_API_KEY="你的密钥"
    ```
 
-> 💡 如果你已为其他智谱 skill（如 `glmocr`、`glmv-caption`）配置过 key，它们共享同一个 `ZHIPU_API_KEY`，无需重复配置。
+> 💡 如果你已为其他智谱 skill（如 `glmocr`、`glmv-caption`、`glm-image-generation`）配置过 key，它们共享同一个 `ZHIPU_API_KEY`，无需重复配置。
 
 ## Security & Transparency / 安全与透明度
 
